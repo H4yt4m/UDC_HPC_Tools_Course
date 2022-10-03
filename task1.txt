@@ -1,17 +1,75 @@
 1. What is the purpose of this code? What does the code compute to get it?
 
-   [...]
+   The purpose of this code is to compute the solution to a system of linear
+   equations, written in the matrix form as : AX=B. In order to do so, the dgesv
+   routine is an implementation of the LU decomposition of a system of linear
+   equations method.
 
 2. Briefly describe alternative mathematical methods to perform the same operation.
 
-   [...]
+   In order to solve a system of linear equations, we could use several methods :
+
+   --> Gaussian Elimination     : This method results in, through elemental matrix 
+                                  operations, a Row Echelon Form matrix (REF). 
+                                  The caracteristics of this matrix are :
+                                  - Any only-zeros row should be at the bottom of 
+                                    the matrix.
+                                  - The pivot, or the leading coefficient of every
+                                    non-zero row is always strictly to the right of
+                                    the leading coefficient of the row above it. 
+   --> Gauss-Jordan Elimination : The Gauss-Jordan elimination's end matrix is a 
+                                  Row Reduced Echelon Form matrix (RREF). In 
+                                  addition to the catacteristics of the resulting 
+                                  matrix from the past method, the matrix has to : 
+                                  - Have the leading entry of every non zero row 
+                                    as 1.
+                                  - Each column containing a leading 1 has only 
+                                    zeros in all its other entries.
+                                  An important aspect of the resulting matrix is that, 
+                                  unlike in the Gaussian Elimination, it is unique.
+   --> Jaccobi                  : The Jacobi method is an iterative method based on
+                                  that aims to determine the solution for a system of 
+                                  linear equations that has to be strictly diagonally 
+                                  dominant, ie. for every row of the corresponding matrix,
+                                  the magnitude of the diagonal element is larger than or
+                                  equal to the sum of the magnitudes of the other 
+                                  non-diagonal elements.
+
 
 3. What alternative(s) do you think is more demanding, from a computational point of view and in terms of memory consumption?
 
-   [...]
+   --> Both the Gaussian methods have a complexity of O(n³) in the worst case, for a matrix with n diagonal elements.
+   --> Jaccobi : Its complexity is O(n²) in the worst case, but could be O(n) for a sparse matrix.
 
 4. What do you think can be the best candidate(s) for a parallel implementation?
 
-   [...]
+   --> For a use case consisting of thousands of unknowns, I believe that the Gaussian methods are great candidats to
+       create an optimized implementation. However, for a use case of millions of equations, the iterative methods generally,
+       one of them is the Jaccobi method, will be way more efficient (given their complexity).
 
 5. Choose one of the described methods to code your own sequential implementation in C, using the provided code skeleton.
+   
+   --> I chose the Gauss-Jordan Elimination method because, given the complexity of the method, the unique solution it computes,
+       and the use case of the task, I am convinced that there is a margin to optimize the calculation time, using all the tools
+       that I'm acquiring in my actual HPC Master Degree.
+
+
+***REFERENCES*** 
+
+Lapack DGESV: 
+
+   https://netlib.org/lapack/explore-html/d7/d3b/group__double_g_esolve_ga5ee879032a8365897c3ba91e3dc8d512.html
+   https://github.com/Foadsf/Cmathtuts/tree/dev
+   https://www.geeksforgeeks.org/l-u-decomposition-system-linear-equations/
+
+Gaussian Elimination / Gauss-Jordan : 
+
+   https://www.statisticshowto.com/matrices-and-matrix-algebra/reduced-row-echelon-form-2/
+   https://www.codesansar.com/numerical-methods/gauss-jordan-method-pseudocode.htm
+   https://www.geeksforgeeks.org/program-for-gauss-jordan-elimination-method/?ref=gcse
+   https://www.math.ryerson.ca/~danziger/professor/MTH108/Handouts/gauss-complexity.pdf
+
+Other iterative methods :
+
+   https://en.wikipedia.org/wiki/Iterative_method
+
