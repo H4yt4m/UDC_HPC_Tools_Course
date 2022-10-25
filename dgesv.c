@@ -43,54 +43,41 @@ int check_result(double *bref, double *b, int size)
 int my_dgesv(int n, double *a, double *b)
 
 {
-  int size = n;
+  int i, j, k;
+  double ratio;
 
   // Initialising the augmented matrix
   // https://en.wikipedia.org/wiki/Augmented_matrix
 
-  double **augMatrix = (double **)malloc(sizeof(double *) * size);
-
-  for (int i = 0; i < n; i++)
-  {
-    augMatrix[i] = (double *)malloc(sizeof(double) * 2 * size);
-  }
+  double *restrict augMatrix = (double *)malloc(sizeof(double ) * n * 2 * n);
 
   // Filling the augmented matrix from the arrays A and B
   
-  for (int i = 0; i < n; i++)
-    for (int j = 0; j < n; j++)
+  for (i = 0; i < n; i++)
+    for (j = 0; j < n; j++)
     {
-      augMatrix[i][j] = a[i * n + j];
-    }
+      augMatrix[i * n + j] = a[i * n + j];
+      augMatrix[i * n + n + j] = b[i * n + j];
 
-  for (int i = 0; i < n; i++)
-    for (int j = 0; j < n; j++)
-    {
-      augMatrix[i][n + j] = b[i * n + j];
     }
-
+   
   // Gauss Jordan Elimination
 
-  for (int i = 0; i < n; i++)
+  for (i = 0; i < n; i++)
   {
-    if (augMatrix[i][i] == 0.0)
-    {
-      printf("Mathematical Error! The zero is located at the element index %d in the diagonal of matrix A \n", i);
-      exit(0);
-    }
-    for (int j = 0; j < n; j++)
+    for (j = 0; j < n; j++)
     {
       if (i != j)
       {
         // Calculating the ratio or the pivot
 
-        double ratio = augMatrix[j][i] / augMatrix[i][i];
+        ratio = augMatrix[j*n+i] / augMatrix[i*n+i];
 
         // Actualising the values
 
-        for (int k = 0; k < 2 * n; k++)
+        for (k = 0; k < 2 * n; k++)
         {
-          augMatrix[j][k] = augMatrix[j][k] - ratio * augMatrix[i][k];
+          augMatrix[j * n + k] = augMatrix[j * n + k] - ratio * augMatrix[i * n + k ];
         }
       }
     }
@@ -98,10 +85,10 @@ int my_dgesv(int n, double *a, double *b)
 
   // Unique solution
 
-  for (int i = 0; i < n; i++)
-    for (int j = 0; j < n; j++)
+  for (i = 0; i < n; i++)
+    for (j = 0; j < n; j++)
     {
-      b[i * n + j] = augMatrix[i][n + j] / augMatrix[i][i];
+      b[i * n + j] = augMatrix[i * n + n + j] / augMatrix[i * n + i];
     }
 
   return 0;
