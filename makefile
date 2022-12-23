@@ -40,6 +40,12 @@ dgesv_gcc_ofast_pfprof_gen: dgesv.c
 dgesv_gcc_ofast_pfprof_use: dgesv.c
 	gcc  -g3   dgesv.c  -lopenblas -o dgesv_gcc -Ofast -march=native -fprofile-use
 
+dgesv_gcc_o3_parallel_pfprof_gen: dgesv.c
+	gcc  -g3   dgesv.c  -lopenblas -o dgesv_gcc -O3 -march=native -fopenmp -fprofile-generate
+
+dgesv_gcc_o3_parallel_pfprof_use: dgesv.c
+	gcc  -g3   dgesv.c  -lopenblas -o dgesv_gcc -O3 -march=native -fopenmp -fprofile-use
+
 # Modules needed: intel imkl
 # => module load intel imkl
 # You need to uncomment the header for mkl
@@ -78,3 +84,9 @@ dgesv_icc_ofast_prof_gen: dgesv.c
 
 dgesv_icc_ofast_prof_use: dgesv.c
 	icc  -g3   dgesv.c  -mkl -o dgesv_icc -Ofast -xHost -prof-use
+
+dgesv_icc_o3_parallel_prof_gen: dgesv.c
+	icc  -g3   dgesv.c  -mkl -o dgesv_icc -O3 -xHost -fopenmp -prof-gen
+
+dgesv_icc_o3_parallel_prof_use: dgesv.c
+	icc  -g3   dgesv.c  -mkl -o dgesv_icc -O3 -xHost -fopenmp -prof-use

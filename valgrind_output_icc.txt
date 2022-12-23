@@ -1,0 +1,159 @@
+==356420== Memcheck, a memory error detector
+==356420== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==356420== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==356420== Command: ./dgesv_icc 256
+==356420== 
+==356420== Invalid read of size 16
+==356420==    at 0x401F635: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x400BC78: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x4007055: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x400906A: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x4013A11: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0xDC8731F: _dl_catch_exception (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0x40135C9: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0xDD15257: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0xDC8731F: _dl_catch_exception (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0xDC873DE: _dl_catch_error (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0xDD15A64: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0xDD152E3: dlopen (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==  Address 0xe0379d0 is 7 bytes after a block of size 73 alloc'd
+==356420==    at 0x483779F: malloc (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so)
+==356420==    by 0x401BD2A: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x4008FF1: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x4013A11: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0xDC8731F: _dl_catch_exception (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0x40135C9: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0xDD15257: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0xDC8731F: _dl_catch_exception (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0xDC873DE: _dl_catch_error (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0xDD15A64: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0xDD152E3: dlopen (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0x910F998: MKL_Load_Lib (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/software/Core/imkl/2021.3.0/mkl/2021.3.0/lib/intel64/libmkl_core.so.1)
+==356420== 
+==356420== Invalid read of size 16
+==356420==    at 0x401F63A: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x400BC78: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x4007055: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x400906A: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x4013A11: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0xDC8731F: _dl_catch_exception (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0x40135C9: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0xDD15257: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0xDC8731F: _dl_catch_exception (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0xDC873DE: _dl_catch_error (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0xDD15A64: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0xDD152E3: dlopen (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==  Address 0xe0379e0 is 23 bytes after a block of size 73 alloc'd
+==356420==    at 0x483779F: malloc (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so)
+==356420==    by 0x401BD2A: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x4008FF1: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x4013A11: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0xDC8731F: _dl_catch_exception (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0x40135C9: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0xDD15257: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0xDC8731F: _dl_catch_exception (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0xDC873DE: _dl_catch_error (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0xDD15A64: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0xDD152E3: dlopen (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0x910F998: MKL_Load_Lib (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/software/Core/imkl/2021.3.0/mkl/2021.3.0/lib/intel64/libmkl_core.so.1)
+==356420== 
+==356420== Invalid read of size 16
+==356420==    at 0x401F63F: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x400BC78: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x4007055: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x400906A: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x4013A11: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0xDC8731F: _dl_catch_exception (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0x40135C9: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0xDD15257: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0xDC8731F: _dl_catch_exception (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0xDC873DE: _dl_catch_error (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0xDD15A64: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0xDD152E3: dlopen (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==  Address 0xe0379f0 is 32 bytes before a block of size 1,264 in arena "client"
+==356420== 
+==356420== Invalid read of size 16
+==356420==    at 0x401F68C: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x400BC78: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x4007055: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x400906A: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x4013A11: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0xDC8731F: _dl_catch_exception (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0x40135C9: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0xDD15257: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0xDC8731F: _dl_catch_exception (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0xDC873DE: _dl_catch_error (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0xDD15A64: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0xDD152E3: dlopen (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==  Address 0xe0379d0 is 7 bytes after a block of size 73 alloc'd
+==356420==    at 0x483779F: malloc (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so)
+==356420==    by 0x401BD2A: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x4008FF1: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x4013A11: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0xDC8731F: _dl_catch_exception (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0x40135C9: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0xDD15257: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0xDC8731F: _dl_catch_exception (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0xDC873DE: _dl_catch_error (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0xDD15A64: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0xDD152E3: dlopen (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0x910F998: MKL_Load_Lib (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/software/Core/imkl/2021.3.0/mkl/2021.3.0/lib/intel64/libmkl_core.so.1)
+==356420== 
+==356420== Invalid read of size 16
+==356420==    at 0x401F691: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x400BC78: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x4007055: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x400906A: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x4013A11: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0xDC8731F: _dl_catch_exception (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0x40135C9: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0xDD15257: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0xDC8731F: _dl_catch_exception (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0xDC873DE: _dl_catch_error (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0xDD15A64: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0xDD152E3: dlopen (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==  Address 0xe0379e0 is 23 bytes after a block of size 73 alloc'd
+==356420==    at 0x483779F: malloc (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so)
+==356420==    by 0x401BD2A: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x4008FF1: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x4013A11: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0xDC8731F: _dl_catch_exception (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0x40135C9: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0xDD15257: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0xDC8731F: _dl_catch_exception (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0xDC873DE: _dl_catch_error (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0xDD15A64: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0xDD152E3: dlopen (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0x910F998: MKL_Load_Lib (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/software/Core/imkl/2021.3.0/mkl/2021.3.0/lib/intel64/libmkl_core.so.1)
+==356420== 
+==356420== Invalid read of size 16
+==356420==    at 0x401F696: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x400BC78: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x4007055: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x400906A: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0x4013A11: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0xDC8731F: _dl_catch_exception (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0x40135C9: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/ld-2.31.so)
+==356420==    by 0xDD15257: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0xDC8731F: _dl_catch_exception (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0xDC873DE: _dl_catch_error (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libc-2.31.so)
+==356420==    by 0xDD15A64: ??? (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==    by 0xDD152E3: dlopen (in /mnt/netapp1/Optcesga_FT2_RHEL7/2020/gentoo/22072020/lib64/libdl-2.31.so)
+==356420==  Address 0xe0379f0 is 32 bytes before a block of size 1,264 in arena "client"
+==356420== 
+==356420== 
+==356420== HEAP SUMMARY:
+==356420==     in use at exit: 3,162 bytes in 9 blocks
+==356420==   total heap usage: 87 allocs, 78 frees, 46,747,562 bytes allocated
+==356420== 
+==356420== LEAK SUMMARY:
+==356420==    definitely lost: 0 bytes in 0 blocks
+==356420==    indirectly lost: 0 bytes in 0 blocks
+==356420==      possibly lost: 0 bytes in 0 blocks
+==356420==    still reachable: 3,162 bytes in 9 blocks
+==356420==         suppressed: 0 bytes in 0 blocks
+==356420== Reachable blocks (those to which a pointer was found) are not shown.
+==356420== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==356420== 
+==356420== For lists of detected and suppressed errors, rerun with: -s
+==356420== ERROR SUMMARY: 8 errors from 6 contexts (suppressed: 17 from 10)

@@ -1,0 +1,158 @@
+--------------------------------------------------------------------------------
+I1 cache:         32768 B, 64 B, 8-way associative
+D1 cache:         49152 B, 64 B, 12-way associative
+LL cache:         50331648 B, 64 B, 12-way associative
+Command:          ./dgesv_gcc_parallel 1024
+Data file:        cachegrind.out.366334
+Events recorded:  Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
+Events shown:     Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
+Event sort order: Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
+Thresholds:       0.1 100 100 100 100 100 100 100 100
+Include dirs:     
+User annotated:   
+Auto-annotation:  on
+
+--------------------------------------------------------------------------------
+Ir            I1mr  ILmr  Dr          D1mr       DLmr   Dw         D1mw      DLmw      
+--------------------------------------------------------------------------------
+1,189,000,421 6,542 2,613 363,964,886 29,833,181 79,730 83,949,710 4,069,493 1,051,556  PROGRAM TOTALS
+
+--------------------------------------------------------------------------------
+Ir          I1mr  ILmr  Dr          D1mr       DLmr   Dw         D1mw      DLmw     file:function
+--------------------------------------------------------------------------------
+711,922,648 1,375   216 230,550,256 20,083,975  1,607  3,287,904   116,468   3,086  ???:dgemm_kernel
+112,975,608     2     2  33,554,432          0      0 16,777,216         0       0  ???:random_r
+ 92,274,688     2     2  37,748,736          0      0  8,388,608         0       0  ???:random
+ 57,671,796     6     6          16          4      0  8,388,628   524,288 524,288  /home/ulc/cursos/curso356/hpc_tools_task1/HPCTools/dgesv.c:generate_matrix
+ 38,637,168   279    12  15,798,336  2,010,362     61 15,735,984 1,965,054 131,160  ???:dgemm_itcopy
+ 38,283,392   290    22   6,693,888    103,121      0  5,561,472   161,782      12  ???:dtrsm_kernel_LT
+ 25,206,922     6     3   4,194,324  4,194,308 28,349  4,194,316   524,291 344,082  ???:LAPACKE_dge_trans
+ 24,729,088    12    12   4,433,920     74,748      0  3,739,840   122,874       0  ???:dtrsm_kernel_LN
+ 23,899,458   629    82  10,507,903    754,124 39,951  8,189,550    27,232      42  ???:dlaswp_plus
+ 17,981,526 2,601 1,557   8,437,810  1,124,003  8,775  1,291,228    13,072   9,635  ???:???
+ 16,777,216     1     1   4,194,304          0      0  4,194,304         0       0  ???:rand
+ 12,599,342     3     3   2,097,154    262,148      0          0         0       0  ???:LAPACKE_dge_nancheck
+  4,798,976   143    26   2,631,040    304,015      0  1,652,032   325,979  33,870  ???:dgemm_oncopy
+  4,133,951    68    14   1,218,100    454,382      4  1,213,167   153,136   5,090  ???:dtrsm_iltucopy
+  3,602,464    14    14   1,065,344    394,932     12  1,053,216   133,120       0  ???:dtrsm_iutncopy
+  1,698,519    76    30     403,940      2,410      0          0         0       0  ???:idamax_k
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: /home/ulc/cursos/curso356/hpc_tools_task1/HPCTools/dgesv.c
+--------------------------------------------------------------------------------
+Ir         I1mr ILmr Dr D1mr DLmr Dw        D1mw    DLmw    
+
+-- line 2 ----------------------------------------
+         .    .    .  .    .    .         .       .       .  #include <stdio.h>
+         .    .    .  .    .    .         .       .       .  #include <stdlib.h>
+         .    .    .  .    .    .         .       .       .  #include <math.h>
+         .    .    .  .    .    .         .       .       .  #include <omp.h>
+         .    .    .  .    .    .         .       .       .  #include <openblas/lapacke.h>
+         .    .    .  .    .    .         .       .       .  // #include <mkl_lapacke.h>
+         .    .    .  .    .    .         .       .       .  
+         .    .    .  .    .    .         .       .       .  double *generate_matrix(int size)
+        20    1    1  0    0    0        12       0       0  {
+         .    .    .  .    .    .         .       .       .    int i;
+        16    0    0  0    0    0         4       0       0    double *matrix = (double *)malloc(sizeof(double) * size * size);
+         .    .    .  .    .    .         .       .       .  
+         8    0    0  0    0    0         4       0       0    srand(1);
+         .    .    .  .    .    .         .       .       .  
+ 3,145,780    1    1  0    0    0         0       0       0    for (i = 0; i < size * size; i++)
+         .    .    .  .    .    .         .       .       .    {
+54,525,952    4    4  0    0    0 8,388,608 524,288 524,288      matrix[i] = rand() % 100;
+         .    .    .  .    .    .         .       .       .    }
+         .    .    .  .    .    .         .       .       .  
+         .    .    .  .    .    .         .       .       .    return matrix;
+        20    0    0 16    4    0         0       0       0  }
+         .    .    .  .    .    .         .       .       .  
+         .    .    .  .    .    .         .       .       .  int is_nearly_equal(double x, double y)
+         .    .    .  .    .    .         .       .       .  {
+         .    .    .  .    .    .         .       .       .    const double epsilon = 1e-5 /* some small number */;
+         .    .    .  .    .    .         .       .       .    return abs(x - y) <= epsilon * abs(x);
+         .    .    .  .    .    .         .       .       .    // see Knuth section 4.2.2 pages 217-218
+         .    .    .  .    .    .         .       .       .  }
+         .    .    .  .    .    .         .       .       .  
+         .    .    .  .    .    .         .       .       .  int check_result(double *bref, double *b, int size)
+         .    .    .  .    .    .         .       .       .  {
+         .    .    .  .    .    .         .       .       .    int i;
+         .    .    .  .    .    .         .       .       .  
+         1    0    0  0    0    0         0       0       0    for (i = 0; i < size * size; i++)
+         .    .    .  .    .    .         .       .       .    {
+         .    .    .  .    .    .         .       .       .      if (!is_nearly_equal(bref[i], b[i]))
+         .    .    .  .    .    .         .       .       .        return 0;
+         .    .    .  .    .    .         .       .       .    }
+         .    .    .  .    .    .         .       .       .  
+         .    .    .  .    .    .         .       .       .    return 1;
+         .    .    .  .    .    .         .       .       .  }
+         .    .    .  .    .    .         .       .       .  
+         .    .    .  .    .    .         .       .       .  int my_dgesv(int n, double *a, double *b)
+         .    .    .  .    .    .         .       .       .  
+        28    2    2  1    0    0         8       0       0  {
+         .    .    .  .    .    .         .       .       .    int i, j, k;
+        18    2    2  1    0    0         8       0       0    double ratio[n * n];
+         .    .    .  .    .    .         .       .       .  
+         .    .    .  .    .    .         .       .       .    // Initialising the augmented matrix
+         .    .    .  .    .    .         .       .       .    // https://en.wikipedia.org/wiki/Augmented_matrix
+         5    0    0  0    0    0         0       0       0    double augMatrix[n * 2 * n];
+         .    .    .  .    .    .         .       .       .  
+         .    .    .  .    .    .         .       .       .      // Filling the augmented matrix from the arrays A and B
+         7    0    0  1    0    0         3       0       0      for (i = 0; i < n; i++)
+         .    .    .  .    .    .         .       .       .        for (j = 0; j < n; j++)
+         .    .    .  .    .    .         .       .       .        {
+        17    2    2  2    0    0         1       0       0          augMatrix[i * n + j] = a[i * n + j];
+         .    .    .  .    .    .         .       .       .          augMatrix[i * n + n + j] = b[i * n + j];
+         .    .    .  .    .    .         .       .       .        }
+         .    .    .  .    .    .         .       .       .  
+         .    .    .  .    .    .         .       .       .  #pragma omp parallel
+         .    .    .  .    .    .         .       .       .    {
+         .    .    .  .    .    .         .       .       .  
+         .    .    .  .    .    .         .       .       .      #pragma omp for private(j)
+         .    .    .  .    .    .         .       .       .  
+-- line 66 ----------------------------------------
+-- line 97 ----------------------------------------
+         .    .    .  .    .    .         .       .       .          b[i * n + j] = augMatrix[i * n + n + j] / augMatrix[i * n + i];
+         .    .    .  .    .    .         .       .       .        }
+         .    .    .  .    .    .         .       .       .    }
+         .    .    .  .    .    .         .       .       .  
+         .    .    .  .    .    .         .       .       .    return 0;
+         .    .    .  .    .    .         .       .       .  }
+         .    .    .  .    .    .         .       .       .  
+         .    .    .  .    .    .         .       .       .  void main(int argc, char *argv[])
+         7    1    1  0    0    0         6       0       0  {
+         .    .    .  .    .    .         .       .       .    int size = atoi(argv[1]);
+         .    .    .  .    .    .         .       .       .  
+         .    .    .  .    .    .         .       .       .    double *a, *aref;
+         .    .    .  .    .    .         .       .       .    double *b, *bref;
+         .    .    .  .    .    .         .       .       .  
+         3    0    0  0    0    0         1       0       0    a = generate_matrix(size);
+         3    0    0  0    0    0         1       0       0    aref = generate_matrix(size);
+         3    0    0  0    0    0         1       0       0    b = generate_matrix(size);
+         3    0    0  0    0    0         1       0       0    bref = generate_matrix(size);
+         .    .    .  .    .    .         .       .       .  
+         .    .    .  .    .    .         .       .       .    // Using LAPACK dgesv OpenBLAS implementation to solve the system
+         .    .    .  .    .    .         .       .       .    int n = size, nrhs = size, lda = size, ldb = size, info;
+         4    0    0  0    0    0         1       0       0    int *ipiv = (int *)malloc(sizeof(int) * size);
+         .    .    .  .    .    .         .       .       .  
+         2    0    0  0    0    0         2       0       0    clock_t tStart = clock();
+         9    1    1  0    0    0         3       0       0    info = LAPACKE_dgesv(LAPACK_ROW_MAJOR, n, nrhs, aref, lda, ipiv, bref, ldb);
+         6    1    1  2    1    1         1       0       0    printf("Time taken by OpenBLAS LAPACK: %.2fs\n", (double)(clock() - tStart) / CLOCKS_PER_SEC);
+         .    .    .  .    .    .         .       .       .    int *ipiv2 = (int *)malloc(sizeof(int) * size);
+         .    .    .  .    .    .         .       .       .  
+         2    0    0  0    0    0         2       0       0    tStart = clock();
+         .    .    .  .    .    .         .       .       .    // double start = omp_get_wtime();
+         4    0    0  0    0    0         1       0       0    my_dgesv(n, a, b);
+         .    .    .  .    .    .         .       .       .    printf("Time taken by my sequential implementation: %.2fs\n", (double)(clock() - tStart) / CLOCKS_PER_SEC);
+         .    .    .  .    .    .         .       .       .    // printf("Time taken by my parallel implementation: %lfs\n", omp_get_wtime()-start);
+         .    .    .  .    .    .         .       .       .    // printf("Time taken by my parallel implementation: %lfs\n", (double)(clock() - tStart) / CLOCKS_PER_SEC);
+         .    .    .  .    .    .         .       .       .  
+         .    .    .  .    .    .         .       .       .    if (check_result(bref, b, size) == 1)
+         .    .    .  .    .    .         .       .       .      printf("Result is ok!\n");
+         .    .    .  .    .    .         .       .       .    else
+         .    .    .  .    .    .         .       .       .      printf("Result is wrong!\n");
+-- line 135 ----------------------------------------
+
+--------------------------------------------------------------------------------
+Ir         I1mr ILmr Dr D1mr DLmr Dw        D1mw    DLmw    
+--------------------------------------------------------------------------------
+57,671,918   15   15 23    5    1 8,388,668 524,288 524,288  events annotated
+

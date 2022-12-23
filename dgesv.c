@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <omp.h>
 #include <openblas/lapacke.h>
 // #include <mkl_lapacke.h>
 
@@ -44,52 +45,55 @@ int my_dgesv(int n, double *a, double *b)
 
 {
   int i, j, k;
-  double ratio;
+  double ratio[n * n];
 
   // Initialising the augmented matrix
   // https://en.wikipedia.org/wiki/Augmented_matrix
-
-  double *restrict augMatrix = (double *)malloc(sizeof(double ) * n * 2 * n);
+  double augMatrix[n * 2 * n];
 
   // Filling the augmented matrix from the arrays A and B
-  
   for (i = 0; i < n; i++)
     for (j = 0; j < n; j++)
     {
       augMatrix[i * n + j] = a[i * n + j];
       augMatrix[i * n + n + j] = b[i * n + j];
-
     }
-   
-  // Gauss Jordan Elimination
 
-  for (i = 0; i < n; i++)
+#pragma omp parallel
   {
-    for (j = 0; j < n; j++)
+
+#pragma omp for private(j)
+
+    // Gauss Jordan Elimination
+    for (i = 0; i < n; i++)
     {
-      if (i != j)
+      for (j = 0; j < n; j++)
       {
-        // Calculating the ratio or the pivot
-
-        ratio = augMatrix[j*n+i] / augMatrix[i*n+i];
-
-        // Actualising the values
-
-        for (k = 0; k < 2 * n; k++)
+        // Last minute idea : maybe I could've tried to split cases of j<i, j=i and j>i and then
+        // loop unroll ?
+        
+        if (i != j)
         {
-          augMatrix[j * n + k] = augMatrix[j * n + k] - ratio * augMatrix[i * n + k ];
+          ratio[i * n + j] = augMatrix[j * n + i] / augMatrix[i * n + i];
+
+          // Actualising the values
+          for (k = 0; k < 2 * n; k++)
+          {
+            augMatrix[j * n + k] += -ratio[i * n + j] * augMatrix[i * n + k];
+          }
         }
       }
     }
+
+#pragma omp for private(j)
+
+    // Unique solution
+    for (i = 0; i < n; i++)
+      for (j = 0; j < n; j++)
+      {
+        b[i * n + j] = augMatrix[i * n + n + j] / augMatrix[i * n + i];
+      }
   }
-
-  // Unique solution
-
-  for (i = 0; i < n; i++)
-    for (j = 0; j < n; j++)
-    {
-      b[i * n + j] = augMatrix[i * n + n + j] / augMatrix[i * n + i];
-    }
 
   return 0;
 }
@@ -116,11 +120,22 @@ void main(int argc, char *argv[])
   int *ipiv2 = (int *)malloc(sizeof(int) * size);
 
   tStart = clock();
+  // double start = omp_get_wtime();
   my_dgesv(n, a, b);
-  printf("Time taken by my implementation: %.2fs\n", (double)(clock() - tStart) / CLOCKS_PER_SEC);
+  printf("Time taken by my sequential implementation: %.2fs\n", (double)(clock() - tStart) / CLOCKS_PER_SEC);
+  // printf("Time taken by my parallel implementation: %lfs\n", omp_get_wtime()-start);
+  // printf("Time taken by my parallel implementation: %lfs\n", (double)(clock() - tStart) / CLOCKS_PER_SEC);
 
   if (check_result(bref, b, size) == 1)
     printf("Result is ok!\n");
   else
     printf("Result is wrong!\n");
+
+  // To solve some Memcheck errors
+  free(a);
+  free(aref);
+  free(b);
+  free(bref);
+  free(ipiv);
+  free(ipiv2);
 }
